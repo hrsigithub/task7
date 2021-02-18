@@ -10,8 +10,6 @@ import SwiftUI
 struct ContentView: View {
 
     @State private var selection = 0
-    @State private var textArray = Array(repeating: "", count: 4)
-    @State private var total:Int?
 
     var body: some View {
 
