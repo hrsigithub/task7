@@ -19,19 +19,6 @@ struct ContentView: View {
             TabView(selection: $selection) {
                 comView(color: Color.red, tabTitle: "加算タブ", isAdd: true)
                 comView(color: Color.green, tabTitle: "減算タブ", isAdd: false)
-
-                //                ZStack {
-                //                    Color.green
-                //                        .edgesIgnoringSafeArea(.all)
-                //
-                //                    Text("LEFT 2")
-                //
-                //                }.tabItem {
-                //                    Text("減算タブ").tag(2)
-                //                }
-
-
-
             }
 
         }
@@ -82,7 +69,7 @@ struct comView: View {
             }
         }.tabItem {
             Text(tabTitle)
-        }
+        }.tag(isAdd ? 0 : 1)
     }
 }
 
