@@ -15,23 +15,28 @@ struct ContentView: View {
 
         VStack {
             TabView(selection: $selection) {
-                comView(color: Color.red, tabTitle: "加算タブ", isAdd: true)
-                comView(color: Color.green, tabTitle: "減算タブ", isAdd: false)
+                CalculationView(color: Color.red, calculate: +)
+                    .tabItem {
+                        Text("加算タブ")
+                    }
+                    .tag(0)
+                CalculationView(color: Color.green, calculate: -)
+                    .tabItem {
+                        Text("減算タブ")
+                    }
+                    .tag(1)
             }
-
         }
     }
 }
 
-// 共通 View
-struct comView: View {
+struct CalculationView: View {
 
     @State private var textArray = Array(repeating: "", count: 2)
-    @State private var total:Int?
+    @State private var result:Int?
 
     var color: Color
-    var tabTitle: String
-    var isAdd: Bool
+    let calculate: (Int, Int) -> Int
 
     var body: some View {
         ZStack {
@@ -54,23 +59,20 @@ struct comView: View {
                         return
                     }
 
-                    total = isAdd ? num1 + num2 : num1 - num2
+                    result = calculate(num1, num2)
 
                     UIApplication.shared.closeKeyboard()
                 }.padding()
 
                 HStack {
-                    Text(String(total ?? 0))
+                    Text(String(result ?? 0))
                 }
 
                 Spacer()
             }
-        }.tabItem {
-            Text(tabTitle)
-        }.tag(isAdd ? 0 : 1)
+        }
     }
 }
-
 
 struct InputView: View {
     @Binding var text: String
